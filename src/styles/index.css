@@ -9,3 +9,103 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+
+body {
+    margin: 0px;
+    padding: 0px;
+
+}
+.calc {
+    width: 400px;
+    margin-top: 10%;
+}
+
+.display {
+    display: grid;
+    background-color: black;
+    color: white;
+    font-size: 45px;
+    text-align: right;
+    height: 10%;
+    padding-top: 15px;
+    padding-right: 10px;
+}
+
+.teclado {
+    display: grid;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+button {
+    font-size: 40px;
+    cursor: pointer;
+    padding: 0px;
+    margin: 0px;
+}
+.linea {
+    display: flex;
+    justify-content: space-between;
+}
+
+#operadores {
+    background-color: rgb(0, 149, 255);
+    color: white;
+    width: 100px;
+    height: 110px;
+    font-size: 45px;
+}
+
+#operadores:hover {
+    background-color: rgba(11, 99, 163, 0.71);
+}
+
+#operadores:active {
+    background-color: rgb(0, 26, 255);
+}
+
+#numeros-borradores {
+    background-color: lightgrey;
+    width: 100px;
+    height: 110px;
+}
+
+
+
+#numeros-borradores:hover {
+    background-color: #d3d3d3a3;
+}
+
+#numeros-borradores:active {
+    background-color: grey
+}
+
+#cero {
+    background-color: lightgrey;
+    width: 300px;
+    height: 110px;
+}
+
+#cero:hover {
+    background-color: rgba(211, 211, 211, 0.665);
+}
+
+#cero:active {
+    background-color: grey
+}
+
+#clearBoton {
+    background-color: lightgrey;
+    width: 200px;
+    height: 110px;
+}
+
+#clearBoton:hover {
+    background-color: rgba(211, 211, 211, 0.567);
+}
+
+#clearBoton:active {
+    background-color: grey
+}
+
