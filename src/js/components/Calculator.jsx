@@ -3,8 +3,10 @@ import React, { useState } from "react";
 const Calculator = () => {
 
 	const [boardInput, setBoardInput] = useState("");
-	const [oper, setOper] = useState("");
-	const [prevNum, setPrevNum] = useState([])
+	const [operSign, setOperSign] = useState("");
+	console.log("OperSign ", operSign)
+	const [prevNum, setPrevNum] = useState(0);
+	console.log("prevNum ", prevNum);
 
 	const operators = {
 		'+': (a, b) => a + b,
@@ -15,59 +17,65 @@ const Calculator = () => {
 		'**': (a, b) => a ** b
 	};
 
-	function operation(str, oper) {
+	function operationEqualTo(str, oper) {
 		let result = 0
-		console.log("esto es str ",str, oper)
-		if (typeof(str) === "number") {
-			console.log(prevNum)
-			console.log(operators[oper](str, parseInt(prevNum[1])))
-			result = operators[oper](str, parseInt(prevNum[1]))
-		}
-		else if (str === "" || oper === "") {
+		console.log("en operationEqualTo, esto es str ",str," oper ",oper);
+		if (str === "" || oper === "" || oper === str || str == NaN || str === "0") {
 			result = "0"
 		}
 		else {
 			let values = str.split(oper)
-			setPrevNum(values)
-			result = operators[oper](parseInt(values[0]), parseInt(values[1]))
+			console.log("esto es values ", values);
+			result = (operators[oper](parseInt(values[0]), parseInt(values[1]))).toString()
+			setPrevNum(parseInt(result))
 		}
-		console.log(result)
 		setBoardInput(result)
+		setOperSign("")
+	}
+
+	function continousOperations(str, oper, nextOperLocal) {
+		let result = 0
+		console.log("en continousOperations, esto es str ",str," oper ",oper);
+		if (str === "" || oper === "" || oper === str || str == NaN || str === "0") {
+			result = "0"
+		}
+		else {
+			let values = str.split(oper)
+			console.log("esto es values ", values);
+			result = (operators[oper](parseInt(values[0]), parseInt(values[1]))).toString()
+			setPrevNum(parseInt(values[1]))
+		}
+		setBoardInput(result + (nextOperLocal ? nextOperLocal : ""));
 	}
 
 	function detelteOne() {
-		
+		setBoardInput(boardInput.substring(0,boardInput.length -1))
 	}
 
 	function deleteAll() {
 		setBoardInput("")
+		setOperSign("")
 	}
 
 	const handleInput = event => {
 		event.preventDefault();
 		let value = event.target.value
+		setBoardInput(boardInput + value)
 		if (value === "=") {
-			operation(boardInput, oper)
+			operationEqualTo(boardInput, operSign)
 		}
 		else if (isNaN(parseInt(value))) {
-			setOper(value)
-			setBoardInput(boardInput + value)
-		}
-		else {
-			setBoardInput(boardInput + value)
-		}
+			if (operSign !== "") {
+				continousOperations(boardInput, operSign, value)
+				setOperSign(value)
+			}
+			else {
+				setOperSign(value)
 
+			}
+
+		}
 	}
-
-	/* 
-		Pseudo código
-
-		Crear calculadora html css DONE
-		Tomar los valores del html para usar en js DONE
-		mostrar entradas en el display, solo numeros y signos
-		alojar valores en variables
-		hacer cálculo y mostrar en display
-	*/
 
 
 	return (
@@ -77,7 +85,7 @@ const Calculator = () => {
 				<section className="teclado">
 					<div className="linea">
 						<button onClick={deleteAll} value="DeleteAll" id="clearBoton" className="botones">AC</button>
-						<button value="DeleteOne" id="numeros-borradores" className="botones">←</button>
+						<button onClick={detelteOne} value="DeleteOne" id="numeros-borradores" className="botones">←</button>
 						<button onClick={handleInput} value="/" id="operadores" className="botones-oper">÷</button>
 					</div>
 					<div className="linea">
@@ -100,6 +108,7 @@ const Calculator = () => {
 					</div>
 					<div className="linea">
 						<button onClick={handleInput} value="0" id="cero" className="botones">0</button>
+						<button onClick={handleInput} value="." id="punto" className="botones">.</button>
 						<button onClick={handleInput} value="=" id="operadores" className="botones-oper">=</button>
 					</div>
 				</section>

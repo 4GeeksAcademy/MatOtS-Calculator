@@ -67,7 +67,7 @@ button {
 
 #numeros-borradores {
     background-color: lightgrey;
-    width: 100px;
+    width: 25%;
     height: 110px;
 }
 
@@ -83,7 +83,7 @@ button {
 
 #cero {
     background-color: lightgrey;
-    width: 300px;
+    width: 55%;
     height: 110px;
 }
 
@@ -107,5 +107,10 @@ button {
 
 #clearBoton:active {
     background-color: grey
+}
+
+#punto {
+    width: 20%;
+    background-color: lightgrey;
 }
 

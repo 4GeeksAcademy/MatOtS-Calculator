@@ -13,7 +13,5 @@ import Calculator from './components/Calculator';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Calculator/>
-  </React.StrictMode>,
+  <Calculator/>
 )
